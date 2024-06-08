@@ -3,24 +3,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../context/cartContext';
+import {getCollectibles} from "@/app/api/state";
+import {useGlobalContext} from "@/app/state-provider";
 
 export default function ShopPage() {
-  const [paintings, setPaintings] = useState([]);
+  const { collectibles } = useGlobalContext()
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const { cart, addToCart } = useCart();
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchPaintings = async () => {
-      const response = await fetch('/api/paintings');
-      const data = await response.json();
-      setPaintings(data);
-    };
-
-    fetchPaintings();
-  }, []);
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -39,14 +32,15 @@ export default function ShopPage() {
   const navigateToArtist = (artist) => {
     router.push(`/artists/${artist}`);
   };
+  console.log(collectibles)
 
   return (
       <div className="container mx-auto">
         <h1 className="text-4xl font-bold mb-8">NFT Paintings</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {paintings.map((painting) => (
+          {collectibles.map((painting) => (
               <div key={painting.id} className="bg-gray-200 dark:bg-gray-800 p-6 rounded shadow-lg">
-                <img src={painting.image} alt={painting.name} className="w-full h-64 object-cover rounded mb-4" />
+                <img src={painting.artworkPath} alt={painting.name} className="w-full h-64 object-cover rounded mb-4" />
                 <h2 className="text-2xl font-semibold mb-2">{painting.name}</h2>
                 <p className="mb-2">Price: {painting.priceXRP} XRP / €{painting.priceEUR}</p>
                 <p className="mb-4">Artist: {painting.artist}</p>

@@ -1,4 +1,4 @@
-import {addListing, getListings} from "@/app/api/state";
+import {addCollectible, getCollectibles} from "@/app/api/state";
 import fs from "fs/promises";
 
 export async function POST(request) {
@@ -15,17 +15,16 @@ export async function POST(request) {
         Buffer.from(fileArrayBuffer),
     )
 
-    addListing({
+    const item = {
         biometricsPath: './public/biometrics/' + data.get('biometrics').name,
         artworkPath: './public/images/' + data.get('artwork').name,
-        firstName: data.get('firstName'),
-        lastName: data.get('lastName'),
-        price: data.get('price'),
+        artist: data.get('artist'),
+        priceXRP: data.get('euroPrice'),
+        priceEUR: data.get('xrpPrice'),
+        name: data.get('name'),
         artistProfitMargin: data.get('artistProfitMargin'),
-        id: getListings().length + 1
-    })
+        id: getCollectibles().length + 1
+    }
 
-    console.log(getListings())
-
-    return Response.json({})
+    return Response.json(item)
 }

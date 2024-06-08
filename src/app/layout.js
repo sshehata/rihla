@@ -6,6 +6,7 @@ import {GlobalContextProvider} from "@/app/state-provider";
 import { useState } from "react";
 import { CartProvider, useCart } from "./context/cartContext";
 import Cart from "./cart/page";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
         <body className={inter.className}>
+        <GlobalContextProvider>
         <CartProvider>
             <LayoutContent>{children}</LayoutContent>
         </CartProvider>
+        </GlobalContextProvider>
         </body>
         </html>
     );
@@ -31,16 +34,24 @@ function LayoutContent({ children }) {
     };
 
     return (
-        <html lang="en">
-        <GlobalContextProvider>
-            <body className={inter.className}>
+        <>
             <nav className="bg-gray-800 p-4 text-white w-full fixed top-0 left-0 z-50 flex justify-between items-center shadow-lg">
                 <div className="flex items-center space-x-6">
-                    <a href="/" className="text-lg font-semibold hover:underline">Home</a>
-                    <a href="/shop" className="text-lg font-semibold hover:underline">Shop</a>
-                    <a href="/contact" className="text-lg font-semibold hover:underline">Contact</a>
-                    <a href="/artists" className="text-lg font-semibold hover:underline">Artists</a>
-                    <a href="/minter" className="text-lg font-semibold hover:underline">Mint NFT</a>
+                    <Link href="/">
+                        Home
+                    </Link>
+                    <Link href="/shop">
+                        Shop
+                    </Link>
+                    <Link href="/contact">
+                        Contact
+                    </Link>
+                    <Link href="/artists">
+                        Artists
+                    </Link>
+                    <Link href="/admin">
+                        Admin
+                    </Link>
                 </div>
                 <button onClick={toggleCartVisibility} className="relative">
                     <svg
@@ -68,8 +79,6 @@ function LayoutContent({ children }) {
             <div className="container mx-auto px-4 py-8 mt-16">
                 {children}
             </div>
-            </body>
-        </GlobalContextProvider>
-        </html>
+            </>
     );
 }

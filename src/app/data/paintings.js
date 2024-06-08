@@ -2,7 +2,8 @@ const paintings = [
     {
         id: 1,
         name: 'Sunset',
-        image: '/images/sunset.jpg',
+        artworkPath: '/images/sunset.jpg',
+        biometricsPath: '/images/sunset.jpg',
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',
@@ -10,7 +11,8 @@ const paintings = [
     {
         id: 2,
         name: 'Ocean View',
-        image: '/images/ocean.jpg',
+        artworkPath: '/images/ocean.jpg',
+        biometricsPath: '/images/ocean.jpg',
         priceXRP: 20,
         priceEUR: 24,
         artist: 'jordan-bennett',
@@ -18,7 +20,8 @@ const paintings = [
     {
         id: 3,
         name: 'Mountain',
-        image: '/images/mountain.jpg',
+        artworkPath: '/images/mountain.jpg',
+        biometricsPath: '/images/mountain.jpg',
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
@@ -26,7 +29,8 @@ const paintings = [
     {
         id: 4,
         name: 'Mountain View',
-        image: '/images/mountain.jpg',
+        artworkPath: '/images/mountain.jpg',
+        biometricsPath: '/images/mountain.jpg',
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
@@ -34,7 +38,8 @@ const paintings = [
     {
         id: 5,
         name: 'Mountain High',
-        image: '/images/mountain.jpg',
+        artworkPath: '/images/mountain.jpg',
+        biometricsPath: '/images/mountain.jpg',
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
@@ -42,7 +47,8 @@ const paintings = [
     {
         id: 6,
         name: 'Mountain On Wheels',
-        image: '/images/mountain.jpg',
+        artworkPath: '/images/mountain.jpg',
+        biometricsPath: '/images/mountain.jpg',
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
@@ -50,7 +56,8 @@ const paintings = [
     {
         id: 7,
         name: 'Sunset View',
-        image: '/images/sunset.jpg',
+        artworkPath: '/images/sunset.jpg',
+        biometricsPath: '/images/sunset.jpg',
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',
@@ -58,7 +65,8 @@ const paintings = [
     {
         id: 8,
         name: 'Sunset - set',
-        image: '/images/sunset.jpg',
+        artworkPath: '/images/sunset.jpg',
+        biometricsPath: '/images/sunset.jpg',
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',
@@ -66,7 +74,8 @@ const paintings = [
     {
         id: 9,
         name: 'Sunset - What',
-        image: '/images/sunset.jpg',
+        artworkPath: '/images/sunset.jpg',
+        biometricsPath: '/images/sunset.jpg',
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',

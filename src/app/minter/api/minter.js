@@ -1,17 +1,23 @@
 const config = require('../../config')
 const xrpl = require('xrpl')
+const crypto = require('crypto')
 
-export async function mint() {
+// artUniqueData -- JSON object with unique data (will be further hashed)
+export async function mint(artUniqueReference) {
     const wallet = xrpl.Wallet.fromSeed(config.rihlaWallet.secret)
-    console.log('WALLET CLASSIC ADDR:', wallet.classicAddress);
 
+    console.log(`MINTER: Connecting to network ${config.xrplConfig.network} using wallet: ${wallet.classicAddress}...`);
     const client = new xrpl.Client(config.xrplConfig.network); // Use testnet for development
     await client.connect();
+    console.log('MINTER: Connected!')
+
+    const nftURI = xrpl.convertStringToHex(artUniqueReference)
+    console.log('MINTER: URI -- ', nftURI)
 
     const nftTransaction = {
         TransactionType: "NFTokenMint",
         Account:  wallet.classicAddress,
-        URI: xrpl.convertStringToHex(`Rihla-Test-URI-1`),
+        URI: nftURI,
         Flags: 8,
         NFTokenTaxon: 0 //Required, but if you have no use for it, set to zero.
     }
@@ -21,10 +27,24 @@ export async function mint() {
     const result = await client.submitAndWait(signedTx.tx_blob);
     console.log('NFT Mint Result:', result);
 
+    let nftId = null;
+    const meta = result.result.meta;
+    if (meta) {
+        const metadata = typeof meta === 'string' ? JSON.parse(meta) : meta;
+        nftId = metadata.nftoken_id; // not exported, but good enough for prototype
+    }
+
     await client.disconnect();
+    console.log('MINTER: Disconnected!')
+
+    return nftId
 }
 
-export async function get_nfts() {
+export async function get_nfts_for_rihlia() {
+    await get_nfts_for_seed(config.rihlaWallet.secret)
+}
+
+export async function get_nfts_for_seed(walletSeed) {
     const wallet = xrpl.Wallet.fromSeed(config.rihlaWallet.secret)
 
     const client = new xrpl.Client(config.xrplConfig.network); // Use testnet for development

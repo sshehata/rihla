@@ -39,7 +39,7 @@ export async function mint(artUniqueReference) {
     return nftId
 }
 
-export async function get_nfts_for_rihlia() {
+export async function get_nfts_for_rihla() {
     await get_nfts_for_seed(config.rihlaWallet.secret)
 }
 
@@ -58,7 +58,7 @@ export async function get_nfts_for_seed(walletSeed) {
     await client.disconnect();
 }
 
-export async function get_balance_for_rhilia() {
+export async function get_balance_for_rihla() {
    await get_balance_for_seed(config.rihlaWallet.secret)
 }
 
@@ -76,3 +76,47 @@ export async function get_balance_for_seed(walletSeed) {
     await client.disconnect();
     console.log('MINTER: Disconnected!')
 }
+
+// export async function transfer_nft_from_rihla_to(nftId, fromWalletSeed, toWalletSeed) {
+//
+// export async function transfer_nft_to(nftId, fromWalletSeed, toWalletSeed) {
+//     const fromWallet = xrpl.Wallet.fromSeed(fromWalletSeed)
+//     const toWallet = xrpl.Wallet.fromSeed(toWalletSeed)
+//
+//     console.log(`MINTER: Connecting to network ${config.xrplConfig.network} using wallet: ${wallet.classicAddress}...`);
+//     const client = new xrpl.Client(config.xrplConfig.network); // Use testnet for development
+//     await client.connect();
+//     console.log('MINTER: Connected!')
+//
+//     const createOfferTx = {
+//         TransactionType: 'NFTokenCreateOffer',
+//         Account: fromWallet.classicAddress,
+//         NFTokenID: nftId,
+//         Amount: '0', // 0 XRP to transfer the NFT without payment
+//         Flags: xrpl.NFTokenCreateOfferFlags.tfSellNFToken
+//     };
+//
+//     const preparedCreateOfferTx = await client.autofill(createOfferTx);
+//     const signedCreateOfferTx = fromWallet.sign(preparedCreateOfferTx);
+//     const createOfferResult = await client.submitAndWait(signedCreateOfferTx.tx_blob);
+//     console.log('NFTokenCreateOffer Result:', createOfferResult);
+//
+//     // Extract the offer index from the NFTokenCreateOffer result
+//     const offerIndex = createOfferResult.result.meta.AffectedNodes.find(
+//         node => node.CreatedNode && node.CreatedNode.LedgerEntryType === 'NFTokenOffer'
+//     ).CreatedNode.LedgerIndex;
+//
+//     const acceptOfferTx = {
+//         TransactionType: 'NFTokenAcceptOffer',
+//         Account: toWallet.classicAddress,
+//         NFTokenSellOffer: offerIndex
+//     };
+//
+//     const preparedAcceptOfferTx = await client.autofill(acceptOfferTx);
+//     const signedAcceptOfferTx = toWallet.sign(preparedAcceptOfferTx);
+//     const acceptOfferResult = await client.submitAndWait(signedAcceptOfferTx.tx_blob);
+//     console.log('NFTokenAcceptOffer Result:', acceptOfferResult);
+//
+//     await client.disconnect();
+//     console.log('MINTER: Disconnected!')
+// }

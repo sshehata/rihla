@@ -14,6 +14,7 @@ export default function Admin() {
         formData.append('price', price)
         formData.append('artistProfitMargin', artistProfitMargin)
         formData.append('artwork', artwork)
+        formData.append('biometrics', biometrics)
     const response = await fetch('/admin/api', {
       method: 'POST',
       body: formData,
@@ -29,10 +30,15 @@ export default function Admin() {
     const [price, setPrice] = useState("")
     const [artistProfitMargin, setArtistProfitMargin] = useState(0)
     const [artwork, setArtwork] = useState(null)
+    const [biometrics, setBiometrics] = useState(null)
 
     const handleArtworkUpload = (e) => {
         setArtwork(e.target.files[0]);
   }
+
+    const handleBiometricsUpload = (e) => {
+        setBiometrics(e.target.files[0]);
+    }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -45,7 +51,7 @@ export default function Admin() {
                         id="arwork-upload" type="file"/>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                            htmlFor="biometrics-upload">Upload artist biometrics</label>
-                    <input
+                    <input onChange={e => handleBiometricsUpload(e)}
                         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="biometrics-upload" type="file"/>
                     <br/>

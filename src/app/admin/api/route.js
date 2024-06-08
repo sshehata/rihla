@@ -1,19 +1,31 @@
 import {addListing, getListings} from "@/app/api/state";
-import multer from "multer";
-
-// Configure multer storage
-const upload = multer({
-  storage: multer.memoryStorage(), // Store files in memory
-    destination: './public',
-  limits: { fileSize: 5 * 1024 * 1024 }, // Set a file size limit (5MB here)
-});
-
+import fs from "fs/promises";
 
 export async function POST(request) {
     const data = await request.formData()
-    console.log(data)
-    console.log(data.get('artwork').name)
-    addListing({...data, id: getListings().length + 1})
+    let fileArrayBuffer = await data.get('artwork').arrayBuffer();
+    await fs.writeFile(
+        './public/images/' + data.get('artwork').name,
+        Buffer.from(fileArrayBuffer),
+    )
+
+    fileArrayBuffer = await data.get('biometrics').arrayBuffer();
+    await fs.writeFile(
+        './public/biometrics/' + data.get('biometrics').name,
+        Buffer.from(fileArrayBuffer),
+    )
+
+    addListing({
+        biometricsPath: './public/biometrics/' + data.get('biometrics').name,
+        artworkPath: './public/images/' + data.get('artwork').name,
+        firstName: data.get('firstName'),
+        lastName: data.get('lastName'),
+        price: data.get('price'),
+        artistProfitMargin: data.get('artistProfitMargin'),
+        id: getListings().length + 1
+    })
+
+    console.log(getListings())
 
     return Response.json({})
 }

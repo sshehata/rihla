@@ -1,6 +1,5 @@
 const config = require('../../config')
 const xrpl = require('xrpl')
-const crypto = require('crypto')
 
 // artUniqueData -- JSON object with unique data (will be further hashed)
 export async function mint(artUniqueReference) {
@@ -58,7 +57,3 @@ export async function get_nfts_for_seed(walletSeed) {
 
     await client.disconnect();
 }
-
-
-// token-1: '00080000BCE0D6D1A517A8209ABD7602AC331866E647132D1BBA65400014A6A5'
-// token-2: '00080000BCE0D6D1A517A8209ABD7602AC331866E647132D32A036410014A6A6'

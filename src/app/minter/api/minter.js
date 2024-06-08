@@ -58,8 +58,12 @@ export async function get_nfts_for_seed(walletSeed) {
     await client.disconnect();
 }
 
-export async function get_rihlia_balance() {
-    const wallet = xrpl.Wallet.fromSeed(config.rihlaWallet.secret)
+export async function get_balance_for_rhilia() {
+   await get_balance_for_seed(config.rihlaWallet.secret)
+}
+
+export async function get_balance_for_seed(walletSeed) {
+    const wallet = xrpl.Wallet.fromSeed(walletSeed)
 
     console.log(`MINTER: Connecting to network ${config.xrplConfig.network} using wallet: ${wallet.classicAddress}...`);
     const client = new xrpl.Client(config.xrplConfig.network); // Use testnet for development

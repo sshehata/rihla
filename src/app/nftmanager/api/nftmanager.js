@@ -1,5 +1,6 @@
 const config = require('../../config')
 const xrpl = require('xrpl')
+const crypto = require('crypto');
 
 // artUniqueData -- JSON object with unique data (will be further hashed)
 export async function mint(artUniqueReference) {

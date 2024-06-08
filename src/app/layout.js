@@ -2,6 +2,7 @@
 
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {GlobalContextProvider} from "@/app/state-provider";
 import { useState } from "react";
 import { CartProvider, useCart } from "./context/cartContext";
 import Cart from "./cart/page";
@@ -30,7 +31,9 @@ function LayoutContent({ children }) {
     };
 
     return (
-        <>
+        <html lang="en">
+        <GlobalContextProvider>
+            <body className={inter.className}>
             <nav className="bg-gray-800 p-4 text-white w-full fixed top-0 left-0 z-50 flex justify-between items-center shadow-lg">
                 <div className="flex items-center space-x-6">
                     <a href="/" className="text-lg font-semibold hover:underline">Home</a>
@@ -65,6 +68,8 @@ function LayoutContent({ children }) {
             <div className="container mx-auto px-4 py-8 mt-16">
                 {children}
             </div>
-        </>
+            </body>
+        </GlobalContextProvider>
+        </html>
     );
 }

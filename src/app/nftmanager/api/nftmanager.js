@@ -41,7 +41,7 @@ export async function mint(artUniqueReference) {
 }
 
 export async function get_nfts_for_rihla() {
-    await get_nfts_for_seed(config.rihlaWallet.secret)
+    return await get_nfts_for_seed(config.rihlaWallet.secret)
 }
 
 export async function get_nfts_for_seed(walletSeed) {
@@ -50,13 +50,20 @@ export async function get_nfts_for_seed(walletSeed) {
     const client = new xrpl.Client(config.xrplConfig.network); // Use testnet for development
     await client.connect();
 
-    const nfts = await client.request({
+    const xrplResponse = await client.request({
          method: "account_nfts",
          account: wallet.classicAddress
     })
-    console.log('NFTs:', JSON.stringify(nfts,null,2));
+    console.log('NFTs:', JSON.stringify(xrplResponse,null,2));
+
+    const nfts = xrplResponse.result.account_nfts.map(nft => ({
+        id: nft.NFTokenID,
+        uri: nft.URI ? Buffer.from(nft.URI, 'hex').toString('utf8') : null // Decode URI if present
+    }));
 
     await client.disconnect();
+
+    return nfts
 }
 
 export async function get_balance_for_rihla() {

@@ -8,10 +8,11 @@ export async function GET(request) {
   // const nftId = await minter.mint(artUniqueReference);
   // console.log('NFT CREATED WITH ID: ', nftId)
 
-  //await minter.get_nfts_for_rihlia()
+  //await minter.get_nfts_for_rihla()
 
-  //await minter.get_rihlia_balance()
-  await minter.get_balance_for_rhilia()
+  await minter.get_balance_for_rihla()
+
+  //await minter.transfer_nft_to()
 
   return Response.json({"message": "hello"})
 }

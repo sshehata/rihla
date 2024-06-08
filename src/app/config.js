@@ -5,8 +5,8 @@
 
 const config = {
     rihlaWallet: {
-        address: 'rfrb2mK77GUbFFtzS3BaomZHvSD7Pu6ZxE',
-        secret: 'sEdTkCgJvYWnrBGq95WcY6woCTTjFv3',
+        address: 'rJD6PwMERNa4ypAGnW8ETrMvmkXbmHeLBj',
+        secret: 'sEdTg37kothxkZgBj5qaETxf4wkDXJy',
     },
     xrplConfig: {
         network: 'wss://s.altnet.rippletest.net:51233',

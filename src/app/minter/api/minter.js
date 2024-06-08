@@ -12,7 +12,7 @@ export async function mint() {
         TransactionType: "NFTokenMint",
         Account:  wallet.classicAddress,
         URI: xrpl.convertStringToHex(`Rihla-Test-URI-1`),
-        Flags: 0,
+        Flags: 8,
         NFTokenTaxon: 0 //Required, but if you have no use for it, set to zero.
     }
 
@@ -20,13 +20,6 @@ export async function mint() {
     const signedTx = wallet.sign(preparedTx);
     const result = await client.submitAndWait(signedTx.tx_blob);
     console.log('NFT Mint Result:', result);
-
-
-    // // const nfts = await client.request({
-    // //     method: "account_nfts",
-    // //     account: wallet.classicAddress
-    // // })
-    // // console.log('NFTs:', nfts);
 
     await client.disconnect();
 }

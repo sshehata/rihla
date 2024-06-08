@@ -101,6 +101,7 @@ export async function transfer_nft_from_to(nftId, fromWalletSeed, toWalletSeed) 
     const createOfferTx = {
         TransactionType: 'NFTokenCreateOffer',
         Account: fromWallet.classicAddress,
+        Destination: toWallet.classicAddress,
         NFTokenID: nftId,
         Amount: '0', // 0 XRP to transfer the NFT without payment
         Flags: xrpl.NFTokenCreateOfferFlags.tfSellNFToken

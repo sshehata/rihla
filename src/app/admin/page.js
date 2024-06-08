@@ -8,17 +8,15 @@ export default function Admin() {
     async function onSubmit(event) {
         event.preventDefault()
 
+        const formData = new FormData()
+        formData.append('firstName', firstName)
+        formData.append('lastName', lastName)
+        formData.append('price', price)
+        formData.append('artistProfitMargin', artistProfitMargin)
+        formData.append('artwork', artwork)
     const response = await fetch('/admin/api', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          price: price,
-          artistProfitMargin: artistProfitMargin,
-      }),
+      body: formData,
     })
 
     // Handle response if necessary
@@ -30,7 +28,11 @@ export default function Admin() {
     const [lastName, setLastName] = useState("")
     const [price, setPrice] = useState("")
     const [artistProfitMargin, setArtistProfitMargin] = useState(0)
+    const [artwork, setArtwork] = useState(null)
 
+    const handleArtworkUpload = (e) => {
+        setArtwork(e.target.files[0]);
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -38,7 +40,7 @@ export default function Admin() {
                 <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                            htmlFor="arwork-upload">Upload artwork file</label>
-                    <input
+                    <input onChange={e => handleArtworkUpload(e)}
                         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="arwork-upload" type="file"/>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

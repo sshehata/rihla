@@ -29,7 +29,7 @@ const Cart = ({ isVisible, toggleVisibility }) => {
                     <div className="space-y-4">
                         {cart.map((item, index) => (
                             <div key={index} className="p-4 bg-gray-200 rounded mb-4 dark:bg-gray-800">
-                                <img src={item.image} alt={item.name} className="rounded mb-2 h-32 object-contain" />
+                                <img src={item.artworkPath} alt={item.name} className="rounded mb-2 h-32 object-contain" />
                                 <h2 className="text-xl">{item.name}</h2>
                                 <p>Price: {item.priceXRP} XRP / €{item.priceEUR}</p>
                                 <button

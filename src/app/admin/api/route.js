@@ -1,5 +1,6 @@
 import {addCollectible, getCollectibles} from "@/app/api/state";
 import fs from "fs/promises";
+import {mint} from "@/app/nftmanager/api/nftmanager";
 
 export async function POST(request) {
     const data = await request.formData()
@@ -25,6 +26,8 @@ export async function POST(request) {
         artistProfitMargin: data.get('artistProfitMargin'),
         id: getCollectibles().length + 1
     }
+
+    item.nftid = mint(JSON.stringify(item))
 
     return Response.json(item)
 }

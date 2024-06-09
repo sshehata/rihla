@@ -24,7 +24,8 @@ export async function POST(request) {
         priceEUR: data.get('xrpPrice'),
         name: data.get('name'),
         artistProfitMargin: data.get('artistProfitMargin'),
-        id: getCollectibles().length + 1
+        id: getCollectibles().length + 1,
+        entryTokens: parseInt(data.get('entryTokens'))
     }
 
     item.nftId = await mint(JSON.stringify(item))

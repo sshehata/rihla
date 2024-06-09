@@ -1,13 +1,11 @@
 'use client'
 
-import Image from "next/image";
 import React, {useEffect, useState} from 'react'
 import {getArtists} from "@/app/api/state";
-import {ar} from "@faker-js/faker";
 import {useGlobalContext} from "@/app/state-provider";
 
 export default function Admin() {
-    const { addCollectible} = useGlobalContext()
+    const { collectibles, addCollectible} = useGlobalContext()
     async function onSubmit(event) {
         event.preventDefault()
 
@@ -19,6 +17,7 @@ export default function Admin() {
         formData.append('artistProfitMargin', artistProfitMargin)
         formData.append('artwork', artwork)
         formData.append('biometrics', biometrics)
+        formData.append('entryTokens', entryTokens)
     const resp = await fetch('/admin/api', {
       method: 'POST',
       body: formData,
@@ -38,6 +37,7 @@ export default function Admin() {
     const [artistProfitMargin, setArtistProfitMargin] = useState(0)
     const [artwork, setArtwork] = useState(null)
     const [biometrics, setBiometrics] = useState(null)
+    const [entryTokens, setEntryTokens] = useState(0)
 
     const [artists, setArtists] = useState({});
 
@@ -77,26 +77,33 @@ export default function Admin() {
                     <input onChange={e => setName(e.target.value)} value={name}
                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            id="name-input"/>
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                           htmlFor="entry-tokens-input">Entry tokens</label>
+                    <input onChange={e => setEntryTokens(parseInt(e.target.value))} value={entryTokens.toString()} type='number'
+                           className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                           id="entry-tokens-input"/>
+
                     <br/>
                     <br/>
                     <h3 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-300 md:text-5xl lg:text-2xl dark:text-white">Artist
                         Info</h3>
 
-                      <select
-        id="artist-select"
-        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:text-white"
-        onChange={handleArtistChange}
-        defaultValue=""
-      >
-        <option value="" disabled>
-          -- Select an Artist --
-        </option>
-        {Object.entries(artists).map(([slug, artist]) => (
-          <option key={slug} value={slug}>
-            {artist.name}
-          </option>
-        ))}
-      </select>
+                    <select
+                        id="artist-select"
+                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:text-white"
+                        onChange={handleArtistChange}
+                        defaultValue=""
+                    >
+                        <option value="" disabled>
+                            -- Select an Artist --
+                        </option>
+                        {Object.entries(artists).map(([slug, artist]) => (
+                            <option key={slug} value={slug}>
+                                {artist.name}
+                            </option>
+                        ))}
+                    </select>
+
 
                     <label htmlFor="euro-price-input"
                            className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Euro Price</label>

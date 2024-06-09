@@ -46,11 +46,11 @@ export default function ShopPage() {
                 <p className="mb-4">Artist: {painting.artist}</p>
                 <div className="flex justify-between space-x-2">
                   <button
-                      className={`bg-blue-500 text-white px-4 py-2 rounded ${cart?.some(item => item.id === painting.id) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`bg-blue-500 text-white px-4 py-2 rounded ${cart?.some(item => item.id === painting.id).length > 0 || painting.entryTokens ? 'opacity-50 cursor-not-allowed' : ''}`}
                       onClick={() => addToCart(painting)}
-                      disabled={cart?.some(item => item.id === painting.id)}
+                      disabled={cart?.some(item => item.id === painting.id).length > 0 || painting.entryTokens > 0}
                   >
-                    {cart?.some(item => item.id === painting.id) ? 'Added to Cart' : 'Add to Cart'}
+                    {cart?.some(item => item.id === painting.id) ? 'Added to Cart' : (painting.entryTokens > 0 ? 'Collect more art to unlock this piece. (0/' + painting.entryTokens + ')'   : 'Add to cart')}
                   </button>
                   <button
                       className="bg-gray-500 text-white px-4 py-2 rounded"

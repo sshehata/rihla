@@ -109,3 +109,23 @@ const artists = {
 };
 
 export const getArtists = () =>artists
+
+const users = {
+    'john': {
+        username: 'john',
+        email: 'john@example.com',
+        password: '123',
+        role: 'user'
+    },
+    'jane': {
+        username: 'jane',
+        email: 'jane@example.com',
+        password: '123',
+        role: 'admin'
+    },
+    // Add more users as needed
+};
+
+export const getUsers = () => users;
+
+export const getUser = (username) => users[username];

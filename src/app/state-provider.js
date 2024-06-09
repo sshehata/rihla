@@ -1,38 +1,29 @@
-'use client'
+// state-provider.js
 
-// Create the context
-import {createContext, useContext, useEffect, useState} from "react";
-import {getCollectibles, addCollectible as stateAddCollectible, getArtists} from "@/app/api/state";
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getCollectibles, addCollectible, transferOwnership as transferOwnershipFn, getUserCollectibles as getUserCollectiblesFn } from '@/app/api/state';
 
 const GlobalContext = createContext();
 
-// Create a provider component
 export const GlobalContextProvider = ({ children }) => {
     const [collectibles, setCollectibles] = useState([]);
-    const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        setCollectibles(getCollectibles())
+        setCollectibles(getCollectibles());
     }, []);
 
-    useEffect(() => {
-        setArtists(getArtists())
-    }, []);
-
-    const addCollectible= (item) => {
-        console.log(item)
-        stateAddCollectible(item)
-        setCollectibles((prevListings) => [...prevListings, item]);
+    const handleTransferOwnership = (collectibleId, fromUser, toUser) => {
+        transferOwnershipFn(collectibleId, fromUser, toUser);
+        setCollectibles(getCollectibles());
     };
 
+    const getUserCollectibles = (username) => getUserCollectiblesFn(username);
+
     return (
-        <GlobalContext.Provider value={{ collectibles, addCollectible, artists}}>
+        <GlobalContext.Provider value={{ collectibles, addCollectible, handleTransferOwnership, getUserCollectibles }}>
             {children}
         </GlobalContext.Provider>
     );
 };
 
-// Create a custom hook for easy access to the context
-export const useGlobalContext = () => {
-    return useContext(GlobalContext);
-};
+export const useGlobalContext = () => useContext(GlobalContext);

@@ -7,6 +7,7 @@ const collectibles= [
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',
+        owner: 'shop',
     },
     {
         id: 2,
@@ -16,6 +17,7 @@ const collectibles= [
         priceXRP: 20,
         priceEUR: 24,
         artist: 'jordan-bennett',
+        owner: 'shop',
     },
     {
         id: 3,
@@ -25,6 +27,7 @@ const collectibles= [
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
+        owner: 'shop',
     },
     {
         id: 4,
@@ -34,6 +37,7 @@ const collectibles= [
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
+        owner: 'shop',
     },
     {
         id: 5,
@@ -43,6 +47,7 @@ const collectibles= [
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
+        owner: 'shop',
     },
     {
         id: 6,
@@ -52,6 +57,7 @@ const collectibles= [
         priceXRP: 15,
         priceEUR: 18,
         artist: 'casey-morgan',
+        owner: 'shop',
     },
     {
         id: 7,
@@ -61,6 +67,7 @@ const collectibles= [
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',
+        owner: 'shop',
     },
     {
         id: 8,
@@ -70,6 +77,7 @@ const collectibles= [
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',
+        owner: 'shop',
     },
     {
         id: 9,
@@ -79,15 +87,27 @@ const collectibles= [
         priceXRP: 10,
         priceEUR: 12,
         artist: 'alex-rivera',
+        owner: 'shop',
     },
 
 
     // Add more products as needed
 ];
+export const getCollectibles = () => collectibles.filter(item => item.owner === 'shop');
 
-export const getCollectibles = () => collectibles
+export const addCollectible = (item) => {
+    item.owner = 'shop';
+    collectibles.push(item);
+};
 
-export const addCollectible= (item) => collectibles.push(item)
+export const getUserCollectibles = (username) => collectibles.filter(item => item.owner === username);
+
+export const transferOwnership = (collectibleId, fromUser, toUser) => {
+    const collectible = collectibles.find(item => item.id === collectibleId);
+    if (collectible && collectible.owner === fromUser) {
+        collectible.owner = toUser;
+    }
+};
 
 const artists = {
     'alex-rivera': {
@@ -115,7 +135,29 @@ const users = {
         username: 'john',
         email: 'john@example.com',
         password: '123',
-        role: 'user'
+        role: 'user',
+        ownedCollectibles: []
+    },
+    'alex': {
+        username: 'alex',
+        email: 'alex@example.com',
+        password: '123',
+        role: 'user',
+        ownedCollectibles: []
+    },
+    'daniel': {
+        username: 'daniel',
+        email: 'daniel@example.com',
+        password: '123',
+        role: 'user',
+        ownedCollectibles: []
+    },
+    'andrea': {
+        username: 'andrea',
+        email: 'andrea@example.com',
+        password: '123',
+        role: 'user',
+        ownedCollectibles: []
     },
     'jane': {
         username: 'jane',

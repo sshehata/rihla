@@ -6,7 +6,7 @@ import {useCart} from "../context/cartContext";
 import { useRouter } from 'next/navigation';
 
 const NavBar = ({ toggleCartVisibility }) => {
-    const { user, logout } = useUser();
+    const { user ,logout } = useUser();
     const { cart } = useCart();
     const router = useRouter();
 
@@ -23,6 +23,7 @@ const NavBar = ({ toggleCartVisibility }) => {
                 <Link href="../shop">Shop</Link>
                 <Link href="../contact">Contact</Link>
                 <Link href="../artists">Artists</Link>
+                <Link href="../my-nfts">My NFTs</Link>
                 {user && user.role === 'admin' && <Link href="../admin">Admin</Link>}
             </div>
             ) :  <div></div>}

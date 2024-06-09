@@ -23,13 +23,9 @@ export default function Admin() {
       method: 'POST',
       body: formData,
     })
-
         const item = await resp.json()
         addCollectible(item)
-
     }
-
-
 
     const [name, setName] = useState("")
     const [artist, setArtist] = useState("")

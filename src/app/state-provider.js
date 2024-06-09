@@ -2,25 +2,31 @@
 
 // Create the context
 import {createContext, useContext, useEffect, useState} from "react";
-import {getListings, addListing as stateAddListing} from "@/app/api/state";
+import {getCollectibles, addCollectible as stateAddCollectible, getArtists} from "@/app/api/state";
 
 const GlobalContext = createContext();
 
 // Create a provider component
 export const GlobalContextProvider = ({ children }) => {
-    const [listings, setListings] = useState([]);
+    const [collectibles, setCollectibles] = useState([]);
+    const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        setListings(getListings())
+        setCollectibles(getCollectibles())
     }, []);
 
-    const addListing = (item) => {
-        stateAddListing(item)
-        setListings((prevListings) => [...prevListings, item]);
+    useEffect(() => {
+        setArtists(getArtists())
+    }, []);
+
+    const addCollectible= (item) => {
+        console.log(item)
+        stateAddCollectible(item)
+        setCollectibles((prevListings) => [...prevListings, item]);
     };
 
     return (
-        <GlobalContext.Provider value={{ listings, addListing }}>
+        <GlobalContext.Provider value={{ collectibles, addCollectible, artists}}>
             {children}
         </GlobalContext.Provider>
     );

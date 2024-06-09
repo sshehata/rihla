@@ -27,7 +27,7 @@ export async function POST(request) {
         id: getCollectibles().length + 1
     }
 
-    item.nftid = mint(JSON.stringify(item))
+    item.nftId = await mint(JSON.stringify(item))
 
     return Response.json(item)
 }

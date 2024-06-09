@@ -16,8 +16,8 @@ export async function POST(request) {
     )
 
     const item = {
-        biometricsPath: './public/biometrics/' + data.get('biometrics').name,
-        artworkPath: './public/images/' + data.get('artwork').name,
+        biometricsPath: '/biometrics/' + data.get('biometrics').name,
+        artworkPath: '/images/' + data.get('artwork').name,
         artist: data.get('artist'),
         priceXRP: data.get('euroPrice'),
         priceEUR: data.get('xrpPrice'),
